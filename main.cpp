@@ -17,12 +17,14 @@ int main()
 	Finish finish;
 	int n = hig.Choice();
 	int Reb = reb.Choice();
+	ZapolnRandom Random;
+	ZapolnSam Sam;
 	Obhod obhod;
 	bitGraph N(n);
 	ShowPath showPath;
 	ShowTable showTable;
 	Zapoln zap;
-	zap.zapoln(N,Reb, n);
+	zap.zapoln(Random,Sam,N,Reb,n);
 	showTable.Table(N,n);
 	int Start = start.Choice();
 	int Finish = finish.Choice();

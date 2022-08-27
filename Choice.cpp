@@ -26,7 +26,7 @@ struct Reb : ChoiceInterface {
 struct Start : ChoiceInterface {
 	int Choice() override {
 		int start;
-		cout << "¬ведите начальную точку обхода(ќт 1)" << endl;
+		cout << '\n' <<"¬ведите начальную точку обхода(ќт 1)" << endl;
 		cin >> start;
 		start = start - 1;
 		return start;

@@ -32,53 +32,51 @@ struct ZapolnRandom : ZapolnInteface{
 struct ZapolnSam : ZapolnInteface {
 	void Zapoln(bitGraph& Obj,int Reb, int n) override
 	{
+		LoopForEachRib(Obj, Reb, n);
+	}
+	void LoopForEachRib(bitGraph& Obj, int Reb, int n)
+	{
 		for (int i = 0; i < Reb; i++)
 		{
-			while (1) {
-				cout << "¬ведите начало дуги(от 1) " << endl;
-				cin >> Obj.from;
-				Obj.from = Obj.from - 1;
-				if (Obj.from < n) {
-					break;
-				}
-			}
-			while(1){
-				cout << "¬ведите конец дуги(от 1) " << endl;
-				cin >> Obj.to;
-				Obj.to = Obj.to - 1;
-				if (Obj.to < n) {
-					break;
-				}
-			}
-				cout << "¬ведите стоимость прохода по этой дуге(от 0 до 9)" << endl;
-				while (1) {
-					cin >> Obj.value;
-					if (Obj.value < 10 && Obj.value >= 0) {
-						break;
-					}
-				}
-			
-			if (Obj.Value[Obj.from][Obj.to] == -1)
+			InputYourRib(Obj, n);
+			CheckingIfRibExistsAndAddsRib(Obj, n,i);
+		}
+	}
+	void InputYourRib(bitGraph& Obj, int n){
+		while (1) {
+			cout << "¬ведите начало дуги(от 1) " << endl;
+			cin >> Obj.from;
+			Obj.from = Obj.from - 1;
+			cout << "¬ведите конец дуги(от 1) " << endl;
+			cin >> Obj.to;
+			Obj.to = Obj.to - 1;
+			cout << "¬ведите стоимость прохода по этой дуге(от 0 до 9)" << endl;
+			cin >> Obj.value;
+			if ((Obj.value < 10 && Obj.value >= 0) && (Obj.to < n) && (Obj.from < n))
 			{
-				if (Obj.from < 0 || Obj.from >= Obj.RebN || Obj.to < 0 || Obj.to >= Obj.RebN)
-				{
-					return;
-				}
-				Obj.Value[Obj.from][Obj.to] = Obj.value;
+				break;
 			}
-			else {
-				i--;
-				cout << "ƒуга уже существует" << endl;
+		}
+	}
+	void CheckingIfRibExistsAndAddsRib(bitGraph& Obj, int n,int &i) {
+		if (Obj.Value[Obj.from][Obj.to] == -1)
+		{
+			if (Obj.from < 0 || Obj.from >= Obj.RebN || Obj.to < 0 || Obj.to >= Obj.RebN)
+			{
+				return;
 			}
+			Obj.Value[Obj.from][Obj.to] = Obj.value;
+		}
+		else {
+			i--;
+			cout << "ƒуга уже существует" << endl;
 		}
 	}
 };
 
 struct Zapoln {
-	void zapoln(bitGraph& ObjMain, int reb, int n) {
+	void zapoln(ZapolnRandom& Random,ZapolnSam& Sam,bitGraph& ObjMain, int reb, int n) {
 		bool klav;
-		ZapolnRandom Random;
-		ZapolnSam Sam;
 		cout << "’отите ввести граф c клавиатуры?(1/0)" << endl;
 		cin >> klav;
 		switch (klav)
